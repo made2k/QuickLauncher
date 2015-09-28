@@ -1,3 +1,11 @@
+//
+//  QuickLauncher.swift
+//  QuickLauncher
+//
+//  Created by Zach McGaughey on 9/26/15.
+//  Copyright © 2015 Zach McGaughey. All rights reserved.
+//
+
 import UIKit
 
 /// Delegate that will be called when a shortcut is
