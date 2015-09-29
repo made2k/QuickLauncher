@@ -122,9 +122,10 @@ public class QuickLauncher :NSObject {
     
     /**
     Set the shortcut that launched the app.
+    
     - parameter shortcut: Shortcut that launched the application.
     */
-    public func setShortCut(shortcut :NSObject) {
+    public func setShortcut(shortcut :NSObject) {
         if #available(iOS 9.0, *) {
             if let shortcut = shortcut as? UIApplicationShortcutItem {
                 quickLaunchAction = shortcut

@@ -38,11 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // This class is provided by UIKit. Add the @available annotation to
+    // This function is provided by UIKit. Add the @available annotation to
     // allow it to work with non iOS 9 devices.
     @available(iOS 9.0, *)
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        QuickLauncher.sharedInsatance.setShortCut(shortcutItem)
+        QuickLauncher.sharedInsatance.setShortcut(shortcutItem)
     }
 
 
