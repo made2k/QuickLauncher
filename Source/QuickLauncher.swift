@@ -42,9 +42,10 @@ public protocol QuickLaunchDelegate :class {
 /// for iOS 9 compatability and allow for a quick and easy way
 /// to get and set shortcut actions.
 public class QuickLauncher :NSObject {
-    static let sharedInsatance = QuickLauncher()
+    public static let sharedInsatance = QuickLauncher()
+    public weak var delegate :QuickLaunchDelegate?
+
     private var quickLaunchAction :NSObject?
-    weak var delegate :QuickLaunchDelegate?
     
     // MARK: Setup
     
