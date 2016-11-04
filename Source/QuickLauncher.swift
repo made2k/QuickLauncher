@@ -34,33 +34,33 @@ public protocol QuickLaunchDelegate :class {
     
     - parameter shortcut: The UIApplicationShortcutItem used to launch the app.
     */
-    func shortcutInvoked(shortcut :NSObject)
+    func shortcutInvoked(_ shortcut :NSObject)
 }
 
 /// A wrapper class round iOS 9 3D Touch shortcuts.
 /// The objective of this class is to minimize the need to check
 /// for iOS 9 compatability and allow for a quick and easy way
 /// to get and set shortcut actions.
-public class QuickLauncher :NSObject {
-    public static let sharedInsatance = QuickLauncher()
-    public weak var delegate :QuickLaunchDelegate?
+open class QuickLauncher :NSObject {
+    open static let sharedInsatance = QuickLauncher()
+    open weak var delegate :QuickLaunchDelegate?
 
-    private var quickLaunchAction :NSObject?
+    fileprivate var quickLaunchAction :NSObject?
     
     // MARK: Setup
     
-    private override init() {
+    fileprivate override init() {
         super.init()
-        NSNotificationCenter.defaultCenter()
+        NotificationCenter.default
         .addObserver(
             self,
-            selector: "applicationDidBecomeActive",
-            name: UIApplicationDidBecomeActiveNotification,
+            selector: #selector(QuickLauncher.applicationDidBecomeActive),
+            name: NSNotification.Name.UIApplicationDidBecomeActive,
             object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     internal func applicationDidBecomeActive() {
@@ -78,7 +78,7 @@ public class QuickLauncher :NSObject {
     
     - parameter delegate: The delegate for QuickLauncher
     */
-    public func setDelegateAsReady(delegate :QuickLaunchDelegate) {
+    open func setDelegateAsReady(_ delegate :QuickLaunchDelegate) {
         self.delegate = delegate
         if let quickLaunchAction = quickLaunchAction {
             delegate.shortcutInvoked(quickLaunchAction)
@@ -91,11 +91,11 @@ public class QuickLauncher :NSObject {
     
     - parameter options: launch options from the AppDelegate
     */
-    public func setupShortcutFromLaunchOptions(options :[NSObject : AnyObject]?) {
+    open func setupShortcutFromLaunchOptions(_ options :[AnyHashable: Any]?) {
         if #available(iOS 9.0, *) {
             if let
                 options = options,
-                action = options[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem
+                let action = options[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem
             {
                 quickLaunchAction = action
             }
@@ -112,7 +112,7 @@ public class QuickLauncher :NSObject {
     - returns: The UIApplicatinoShortcutItem used to launch the application, or nil.
     */
     @available(iOS 9.0, *)
-    public func getAndClearShortcut() -> UIApplicationShortcutItem? {
+    open func getAndClearShortcut() -> UIApplicationShortcutItem? {
         let quickLaunch = quickLaunchAction as? UIApplicationShortcutItem
         quickLaunchAction = nil
         return quickLaunch
@@ -126,7 +126,7 @@ public class QuickLauncher :NSObject {
     
     - parameter shortcut: Shortcut that launched the application.
     */
-    public func setShortcut(shortcut :NSObject) {
+    open func setShortcut(_ shortcut :NSObject) {
         if #available(iOS 9.0, *) {
             if let shortcut = shortcut as? UIApplicationShortcutItem {
                 quickLaunchAction = shortcut
@@ -137,7 +137,7 @@ public class QuickLauncher :NSObject {
     /**
     Clear the shortcut, if it exists.
     */
-    public func clearShortcut() {
+    open func clearShortcut() {
         quickLaunchAction = nil
     }
     
@@ -147,12 +147,12 @@ public class QuickLauncher :NSObject {
     will be displayed.
     */
     @available(iOS 9.0, *)
-    public func addDynamicShortcut(shortcut :UIApplicationShortcutItem) {
-        if UIApplication.sharedApplication().shortcutItems == nil {
-            UIApplication.sharedApplication().shortcutItems = [UIApplicationShortcutItem]()
+    open func addDynamicShortcut(_ shortcut :UIApplicationShortcutItem) {
+        if UIApplication.shared.shortcutItems == nil {
+            UIApplication.shared.shortcutItems = [UIApplicationShortcutItem]()
         }
         
-        UIApplication.sharedApplication().shortcutItems!.append(shortcut)
+        UIApplication.shared.shortcutItems!.append(shortcut)
     }
     
     /**
@@ -165,7 +165,7 @@ public class QuickLauncher :NSObject {
     - parameter iconName: The name of the icon to use. If none is provided, no icon will be added to the shortcut.
     - parameter userData: Any data that should be included with the shortcut.
     */
-    public func addDynamicShortcut(type :String, title :String, subTitle :String? = nil, iconName :String? = nil, userData :[NSObject : AnyObject]? = nil) {
+    open func addDynamicShortcut(_ type :String, title :String, subTitle :String? = nil, iconName :String? = nil, userData :[AnyHashable: Any]? = nil) {
         if #available(iOS 9.0, *) {
             
             var icon :UIApplicationShortcutIcon?
@@ -181,9 +181,9 @@ public class QuickLauncher :NSObject {
     /**
     This function will clear all dynamic shortcuts that have been added to the application.
     */
-    public func resetDynamicShortcuts() {
+    open func resetDynamicShortcuts() {
         if #available(iOS 9.0, *) {
-            UIApplication.sharedApplication().shortcutItems = [UIApplicationShortcutItem]()
+            UIApplication.shared.shortcutItems = [UIApplicationShortcutItem]()
         }
     }
     

@@ -27,7 +27,7 @@ import UIKit
 class ViewController: UIViewController, QuickLaunchDelegate {
 
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         // Using the setDelegateAsReady will set this controller
         // as the delegate and will receive the shortcut action if it exists.
         // It's recommended to call this in viewWillAppear or viewDidAppear
@@ -35,7 +35,7 @@ class ViewController: UIViewController, QuickLaunchDelegate {
         QuickLauncher.sharedInsatance.setDelegateAsReady(self)
     }
     
-    func shortcutInvoked(shortcut: NSObject) {
+    func shortcutInvoked(_ shortcut: NSObject) {
         // When we are using a shortcut item, we have to specify
         // that this is running on iOS 9. Use the available check
         // before running code using the shortcut.
@@ -66,7 +66,7 @@ class ViewController: UIViewController, QuickLaunchDelegate {
     
     - parameter sender: button
     */
-    @IBAction func setDynamicButtonPushed(sender: AnyObject) {
+    @IBAction func setDynamicButtonPushed(_ sender: AnyObject) {
         QuickLauncher.sharedInsatance
             .addDynamicShortcut("Demo.Type.Dynamic", title: "Dynamic Shortcut")
     }
@@ -76,16 +76,16 @@ class ViewController: UIViewController, QuickLaunchDelegate {
     
     - parameter sender: button
     */
-    @IBAction func removeDynamicButtonPushed(sender: AnyObject) {
+    @IBAction func removeDynamicButtonPushed(_ sender: AnyObject) {
         QuickLauncher.sharedInsatance.resetDynamicShortcuts()
     }
     
     // MARK: Helper functions
     
-    func showAlert(title :String, message :String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+    func showAlert(_ title :String, message :String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     

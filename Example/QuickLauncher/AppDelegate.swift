@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Extract any shortcut that may have launched the app.
         // We don't need to take any action here, but will
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // This function is provided by UIKit. Add the @available annotation to
     // allow it to work with non iOS 9 devices.
     @available(iOS 9.0, *)
-    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         QuickLauncher.sharedInsatance.setShortcut(shortcutItem)
     }
 
