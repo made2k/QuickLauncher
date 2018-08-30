@@ -63,7 +63,7 @@ open class QuickLauncher :NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    internal func applicationDidBecomeActive() {
+    @objc internal func applicationDidBecomeActive() {
         if #available(iOS 9.0, *) {
             if let quickLaunchAction = quickLaunchAction as? UIApplicationShortcutItem {
                 delegate?.shortcutInvoked(quickLaunchAction)
