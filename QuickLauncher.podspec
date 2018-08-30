@@ -16,6 +16,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://github.com/made2k/QuickLauncher"
   s.screenshots  = "http://i.imgur.com/gsMI3mJ.gif"
+  s.swift_version = '4.0'
 
   s.license      = { :type => "MIT", :file => "LICENSE"}
 
